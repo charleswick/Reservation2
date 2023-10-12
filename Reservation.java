@@ -4,12 +4,14 @@ public class Reservation {
     public double time;
     public long timeMade;
     public int priority;
+    public int numReservation;
 
     public Reservation(int pnumberPeople, double pTime, long ptimeMade, int pPriority){
         numberPeople=pnumberPeople;
         time=pTime;
         timeMade = ptimeMade;
         priority=pPriority;
+        numReservation = 10;
     }
 
     public void makeString(){
