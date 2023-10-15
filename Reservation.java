@@ -11,7 +11,7 @@ public class Reservation {
         time=pTime;
         timeMade = ptimeMade;
         priority=pPriority;
-        numReservation = 10;
+
     }
 
     public void makeString(){

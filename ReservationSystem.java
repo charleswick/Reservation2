@@ -1,42 +1,84 @@
 public class ReservationSystem {
+    Reservation[] reservations = new Reservation[10];
+    int reservationsMade;
+
+
+
     public static void main(String[] args) {
         ReservationSystem Jarvis = new ReservationSystem();
+
+
+
+
+
     }
+
+
+
     public ReservationSystem(){
-        Reservation Gavin = new Reservation(4,10.00,800,1);
-        Gavin.makeString();
+//        Reservation Gavin = new Reservation(4,10.00,800,1);
+//        Gavin.makeString();
+//
+//
+//
+//
+//        printReservations();
+
+            addReservation(10,10,8,80000000);
+
+
+
         printReservations();
-
-
-        makeReservation();
 
 
 
 
 
         }
-        int numReservation;
-        public void makeReservation(){
-            for(int i = 0; i<numReservation; i++){
-                reservations[i]=new Reservation(i*2,i*.5,System.currentTimeMillis(),i);
 
+//        public void addReservation(int pNumPeople, double pTime, int pPriority, long pTimeMade){
+//            reservations[reservationsMade]=new Reservation(pNumPeople,pTime,pTimeMade,pPriority);
+//            reservationsMade++;
+//
+//
+//
+//
+//
+//
+//
+//
+//    }
+    public void printReservations() {
+        for (int i = 0; i < reservations.length; i++) {
+            if(reservations[i]==null) {
+                System.out.println("empty res");
 
             }
+            
 
-
-
-
-
-    }
-    public void printReservations(){
-        for(int i=0;i<numReservation;i++){
             reservations[i].makeString();
 
 
         }
 
 
-    Reservation[] reservations = new Reservation[numReservation];
+
+
+
+    }
+    public void addReservation(int pNumPeople, double pTime, int pPriority, long pTimeMade){
+        Reservation chair = new Reservation(pNumPeople,pTime,pTimeMade,pPriority);
+        for(int x =0; x<reservations.length;x++){
+            if(reservations[x]==null){
+                System.out.println("empty");
+                reservations[x]=chair;
+                reservations[x].makeString();
+                break;
+
+            }
+        }
+    }
+
 
 
 }
