@@ -30,6 +30,8 @@ public class ReservationSystem {
 
         printReservations();
 
+        selectionSort();
+
 
 
 
@@ -56,7 +58,7 @@ public class ReservationSystem {
             }
             
 
-            reservations[i].makeString();
+           // reservations[i].makeString();
 
 
         }
@@ -66,7 +68,42 @@ public class ReservationSystem {
 
 
     }
-    public void addReservation(int pNumPeople, double pTime, int pPriority, long pTimeMade){
+    public void selectionSort(){
+        int[] waffles = new int[40];
+        for(int x=0;x<waffles.length;x++){
+            waffles[x]=(int)(Math.random()*100);
+            System.out.print(waffles[x]+", ");
+        }
+
+        int n =waffles.length;
+
+        for(int i=0; i<n-1;i++){
+            int min_int = i;
+            //find min int location
+            for(int j=i+1;j<n;j++){
+                if(waffles[j]<waffles[min_int])
+                    min_int=j;
+
+
+                //swap values
+                int temp = waffles[min_int];
+                waffles[min_int]=waffles[i];
+                waffles[i]=temp;
+
+
+            }
+
+
+
+        }
+        System.out.println();
+        for(int x=0;x<waffles.length;x++){
+
+            System.out.print(waffles[x]+", ");
+        }
+
+
+    }    public void addReservation(int pNumPeople, double pTime, int pPriority, long pTimeMade){
         Reservation chair = new Reservation(pNumPeople,pTime,pTimeMade,pPriority);
         for(int x =0; x<reservations.length;x++){
             if(reservations[x]==null){
