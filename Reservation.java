@@ -13,11 +13,15 @@ public class Reservation {
     //special occaasion?
 
 
-    public Reservation(int pnumberPeople, double pTime, long ptimeMade, int pPriority, String name){
+    public Reservation(int pnumberPeople, double pTime, long ptimeMade, int pPriority, String pName,Boolean pHightop){
         numberPeople=pnumberPeople;
         time=pTime;
         timeMade = ptimeMade;
         priority=pPriority;
+        name=pName;
+        highTop=pHightop;
+
+
 
     }
 
