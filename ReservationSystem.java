@@ -1,6 +1,7 @@
 import java.util.Scanner;
 public class ReservationSystem {
     Reservation[] reservations = new Reservation[10];
+    Reservation[] waitlist = new Reservation[10];
     int reservationsMade;
 
 
@@ -20,46 +21,40 @@ public class ReservationSystem {
 //
 //        printReservations();
 
-        addReservation(10, 10, 8, 80000000,"Jerry",true);
+        addReservation(10, 10, 8, 80000000, "Jerry", true);
 
 
-        printReservations();
-        sortReservations();
-        System.out.println("--------------------------------------");
-        printReservations();
-        System.out.println("--------------------------------------");
-        addReservation(10, 10, 8, 80000000, "Tim",true);
-        addReservation(10, 10, 8, 80000000, "Test",true);
-        addReservation(10, 10, 5, 80000000, "Jill",true);
-        addReservation(10, 10, 9, 80000000, "Tom",true);
-        addReservation(10, 10, 8, 80000000, "Tim",true);
-        addReservation(10, 10, 8, 80000000, "Test",true);
-        addReservation(10, 10, 5, 80000000, "Jill",true);
-        addReservation(10, 10, 9, 80000000, "Tom",true);
+        addReservation(10, 10, 8, 80000000, "Tim", true);
+        addReservation(10, 10, 8, 80000000, "Test", true);
+        addReservation(10, 10, 5, 80000000, "Jill", true);
+        addReservation(10, 10, 9, 80000000, "Tom", true);
+        addReservation(10, 10, 8, 80000000, "Tim", true);
+        addReservation(10, 10, 8, 80000000, "Test", true);
+        addReservation(10, 10, 5, 80000000, "Jill", true);
+        addReservation(10, 10, 9, 80000000, "Tom", true);
 
 
-
-
-        sortReservations();
-        printReservations();
         boolean contiunueeee = true;
-        while (contiunueeee == true){
+        while (contiunueeee == true) {
             Scanner starter = new Scanner(System.in);  // Create a Scanner object
-            System.out.println("Enter 1 for sort reservation, 2 for print reservation, 3 for add reservation");
+            System.out.println("Enter 1 for sort reservation, 2 for print reservation, 3 for add reservation, 4 for print waitlist");
 
             int response = Integer.parseInt(starter.nextLine());
-            if(response>3 || response<1){
+            if (response > 4 || response < 1) {
                 System.out.println("You entered a non valid choice! Defaulting to print reservations...");
-                response=2;
+                response = 2;
             }
-            if(response==1){
+            if (response == 1) {
                 sortReservations();
             }
-            if(response==2){
+            if (response == 2) {
                 printReservations();
             }
-            if(response==3){
+            if (response == 3) {
                 addUserReservation();
+            }
+            if (response == 4) {
+                printWaitlist();
             }
 
 
@@ -67,19 +62,15 @@ public class ReservationSystem {
             System.out.println("Enter 1 to end program, 2 for continue");
 
             int response2 = Integer.parseInt(starter.nextLine());
-            if (response2==1){
-                contiunueeee=false;
+            if (response2 == 1) {
+                contiunueeee = false;
             }
-
-
 
 
         }
 
         sortReservations();
         printReservations();
-
-
 
 
     }
@@ -128,14 +119,12 @@ public class ReservationSystem {
 //
 //    }
 
-        public void printReservations() {
+    public void printReservations() {
         for (int i = 0; i < reservations.length; i++) {
-            if(reservations[i]==null) {
+            if (reservations[i] == null) {
                 System.out.println("empty res");
 
-            }
-
-else {
+            } else {
                 reservations[i].makeString();
             }
 
@@ -146,6 +135,24 @@ else {
 //
 //
     }
+
+    public void printWaitlist() {
+        for (int i = 0; i < waitlist.length; i++) {
+            if (waitlist[i] == null) {
+                //System.out.println("empty res");
+
+            } else {
+                waitlist[i].makeString();
+            }
+
+        }
+//
+//
+//
+//
+//
+    }
+
     public void sortReservations() {
         int n = reservations.length;
 
@@ -154,20 +161,19 @@ else {
             //find min int location
 
             for (int j = i + 1; j < n; j++) {
-                if (reservations[j]!= null)
+                if (reservations[j] != null)
 
                     if (reservations[j].priority < reservations[min_int].priority)
                         min_int = j;
 
 
-                    //swap values
-                if (reservations[j]!=null){
+                //swap values
+                if (reservations[j] != null) {
                     int temp = reservations[min_int].priority;
                     reservations[min_int].priority = reservations[i].priority;
                     reservations[i].priority = temp;
 
                 }
-
 
 
             }
@@ -178,34 +184,63 @@ else {
 
 
     public void addReservation(int pNumPeople, double pTime, int pPriority, long pTimeMade, String pName, Boolean pHightop) {
+        boolean needWaitlist = false;
+
+
         Reservation chair = new Reservation(pNumPeople, pTime, pTimeMade, pPriority, pName, pHightop);
-        for (int x = 0; x < 100; x++) {
-            if (reservations[x] == null&&x<reservations.length) {
-               // System.out.println("empty");
+
+
+        for (int x = 0; x < reservations.length; x++) {
+            if (reservations[x] == null) {
+                // System.out.println("empty");
                 reservations[x] = chair;
                 //reservations[x].makeString();
+                if (reservations[reservations.length - 1] != null) {
+                    needWaitlist = true;
+                }
+
                 break;
 
 
             }
-            else{
-                System.out.println("We're all full! Adding you to the waitlist...");
+
+
+        }
+        if (needWaitlist == true) {
+            for (int z = 0; z < waitlist.length; z++) {
+                if (waitlist[z] == null) {
+                    // System.out.println("empty");
+                    waitlist[z] = chair;
+                    System.out.println("Put in a waitlist spot!");
+                    //reservations[x].makeString();
+                    break;
+
+
+                }
+
+
             }
 
+
+        }
+    }
+
+
+    public void changeReservationTime(String cancelname) {
+
+    }
+
+    public void addUserReservation() {
+        boolean needWaitlist = false;
+        if (reservations[reservations.length - 1] != null) {
+            needWaitlist = true;
         }
 
 
+        Scanner myObj = new Scanner(System.in);  // Create a Scanner object
+        System.out.println("Enter username");
 
-    }
-    public void changeReservationTime(String cancelname){
-
-    }
-    public void addUserReservation() {
-
-            Scanner myObj = new Scanner(System.in);  // Create a Scanner object
-            System.out.println("Enter username");
-
-            String inputname = myObj.nextLine();
+        String inputname = myObj.nextLine();
 
 
         Scanner myObj2 = new Scanner(System.in);  // Create a Scanner object
@@ -218,33 +253,29 @@ else {
         double userTime = (myObj3.nextDouble());
 
 
-        long timeMade =  System.currentTimeMillis();
+        long timeMade = System.currentTimeMillis();
 
-        int Priority = (int) (Math.random()*10);
+        int Priority = (int) (Math.random() * 10);
         Scanner myObj4 = new Scanner(System.in);  // Create a Scanner object
         System.out.println("Is it true you want a hightop? Answer true or false");
         String boolResponse = myObj4.nextLine();
         boolean wantHightop = false;
-        if ("false".equals(boolResponse)||"true".equals(boolResponse)){
-            wantHightop=Boolean.parseBoolean(boolResponse);
+        if ("false".equals(boolResponse) || "true".equals(boolResponse)) {
+            wantHightop = Boolean.parseBoolean(boolResponse);
 
 
-
-        }
-        else {
+        } else {
             System.out.println("You didn't enter a boolean! Defaulting to no hightop...");
-            wantHightop=false;
+            wantHightop = false;
         }
 
 
-
-
-        Reservation tom = new Reservation(numP,userTime,timeMade,Priority,inputname,wantHightop);
+        Reservation tom = new Reservation(numP, userTime, timeMade, Priority, inputname, wantHightop);
         for (int x = 0; x < reservations.length; x++) {
             if (reservations[x] == null) {
-                System.out.println("empty");
+                // System.out.println("empty");
                 reservations[x] = tom;
-                if (x >=reservations.length){
+                if (x >= reservations.length) {
                     System.out.println("Array is full!");
                 }
                 //reservations[x].makeString();
@@ -252,15 +283,28 @@ else {
 
             }
         }
+        if (needWaitlist == true) {
+            for (int z = 0; z < waitlist.length; z++) {
+                if (waitlist[z] == null) {
+                    // System.out.println("empty");
+                    waitlist[z] = tom;
+                    System.out.println("Put in a waitlist spot!");
+                    //reservations[x].makeString();
+                    break;
 
 
+                }
 
 
-
-
-
-
-
+            }
+        }
     }
-
 }
+
+
+
+
+
+
+
+
